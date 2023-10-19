@@ -6,7 +6,7 @@
 
 <p>
   Para iniciar, será preciso que clone o projeto do repositório atual utilizando o comando: 
-  <pre>git clone https://github.com/brunafreit4s/Python.git</pre>  
+  <pre>git clone https://github.com/brunafreit4s/schedule-project.git</pre>  
 </p>
 
 <p>
