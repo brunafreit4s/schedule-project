@@ -16,5 +16,10 @@
 
 <p>
   Execute o funcionamento do ambiente através do comando:
-  <pre>.\venv\Scripts\activate</pre>
+  <pre>env\Scripts\activate</pre>
+</p>
+
+<p>
+  Para visualizar o projeto em funcionamento, basta executar o comando:
+  <pre>python manage.py runserver</pre>
 </p>
