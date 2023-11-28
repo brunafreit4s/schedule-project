@@ -25,7 +25,7 @@ class Contact(models.Model):
     created_date = models.DateTimeField(auto_created=True, auto_now=True)
     description = models.TextField(blank=True)
     picture = models.ImageField(blank=True, upload_to='static/pictures/%Y/%m/')
-
+    show = models.BooleanField(default=True)
     # on_delete=models.CASCADE = deleta em cascada
     # on_delete=models.SET_NULL = ao deletar a categoria, seta NULL no valor deletado
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True, max_length=50)
