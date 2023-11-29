@@ -1,10 +1,10 @@
 {% extends "global/base.html" %}
 {% block content %}
 <div class="form-wrapper">
-    <h2>Contatos</h2>
+    <h2>Contato</h2>
 
     <form 
-      action="{% url 'contact:create' %}"
+    action="{{ form_action }}"
       method="POST"
       enctype="multipart/form-data"
     >
@@ -17,7 +17,6 @@
                 {{ field.errors }}
               </div>
             </div>
-        {% endfor %}
 
         {% if form.non_field_errors %}
           <div class="form-content">
@@ -29,6 +28,13 @@
           </div>
         {% endif %}
 
+          {% if field.name == 'picture' and field.value.url %}
+            <div class="form-group">
+              <img src="{{ field.value.url }}" alt=""></img>
+            </div>
+          {% endif %}
+        {% endfor %}
+        
         <div class="form-content">
           <div class="form-group">
             <button class="btn" type="submit">Salvar</button>

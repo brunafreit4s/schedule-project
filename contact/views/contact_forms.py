@@ -1,13 +1,26 @@
-from typing import Any
-from django.shortcuts import render
 from contact.models import Contact
-from django.shortcuts import render, get_object_or_404
 from contact.forms import ContactForm
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 
 # Create your forms here.
 def create(request):
+    form_action = reverse('contact:create')
+
     if request.method == 'POST':
-        context = { 'form': ContactForm(request.POST) }
+        form = ContactForm(request.POST, request.FILES) 
+        context = { 
+            'form': form, 
+            'form_action': form_action,
+        }
+
+        if form.is_valid():
+            #contact = form.save(commit=False)
+            contact = form.save()
+            #contact.show = False
+            #contact.save()            
+
+            return redirect('contact:update', contact_id=contact.id)
 
         return render(
             request,
@@ -15,7 +28,7 @@ def create(request):
             context,
         )
 
-    context = { 'form': ContactForm() }
+    context = { 'form': ContactForm(), 'form_action': form_action }
     return render(
         request,
         'contact/create.html',
@@ -23,25 +36,47 @@ def create(request):
     )
 
 def update(request, contact_id):
-    #single_contact = get_object_or_404(Contact.objects.filter(pk=contact_id).first())
-    single_contact = get_object_or_404(Contact, pk=contact_id, show=True)
-    contact_name = f'{ single_contact.first_name } { single_contact.last_name }'
-    context = {'contact': single_contact, 'site_title': contact_name}
-    
+    contact = get_object_or_404(Contact, pk=contact_id, show=True)
+    form_action = reverse('contact:update', args=(contact_id,))
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST, request.FILES, instance=contact)
+        context = { 
+            'form': form, 
+            'form_action': form_action, 
+        }
+
+        if form.is_valid():
+            contact = form.save()
+
+            return redirect('contact:update', contact_id=contact.pk)
+
+        return render(
+            request,
+            'contact/create.html',
+            context,
+        )
+
+    context = { 'form': ContactForm(instance=contact), 'form_action': form_action, }
     return render(
         request,
-        'contact/contact.html',
+        'contact/create.html',
         context,
     )
 
 def delete(request, contact_id):
-    #single_contact = get_object_or_404(Contact.objects.filter(pk=contact_id).first())
-    single_contact = get_object_or_404(Contact, pk=contact_id, show=True)
-    contact_name = f'{ single_contact.first_name } { single_contact.last_name }'
-    context = {'contact': single_contact, 'site_title': contact_name}
-    
+    contact = get_object_or_404(Contact, pk=contact_id, show=True)
+    confirmation = request.POST.get('confirmation', 'no')
+
+    if confirmation == 'yes':
+        contact.delete()
+        return redirect('contact:index')
+
     return render(
         request,
         'contact/contact.html',
-        context,
+        {
+            'contact': contact,
+            'confirmation': confirmation,
+        }
     )
