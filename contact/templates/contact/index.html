@@ -1,7 +1,7 @@
 {% extends "global/base.html" %}
 
 {% block content %}
-
+{% if contacts %}
 <div class="responsive-table">
     <table class="contacts-table">
         <caption class="table-caption">
@@ -33,4 +33,11 @@
         </tbody>
     </table>
 </div>
+{% else %}
+<div class="single-contact">
+    <h3 class="sigle-contact-name">
+        Nenhum contato encontrado
+    </h3>
+</div>
+{% endif %}
 {% endblock content %}
