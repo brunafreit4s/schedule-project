@@ -7,9 +7,10 @@
 
     <nav class="menu">
       <ul class="menu-list">
+        {% if user.is_authenticated %}
         <li class="menu-item">
           <a href="{% url 'contact:create' %}" class="menu-link">
-            Novo contato
+            Adicionar um novo contato
           </a>
         </li>
         <li class="menu-item">
@@ -17,6 +18,18 @@
             Atualizar agenda
           </a>
         </li>
+        {% else %}
+        <li class="menu-item">
+          <a href="{% url 'contact:login' %}" class="menu-link">
+            Login
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'contact:register' %}" class="menu-link">
+            Cadastrar
+          </a>
+        </li>
+        {% endif %}
       </ul>
     </nav>
 

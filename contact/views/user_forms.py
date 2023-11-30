@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from contact.forms import RegisterForm, RegisterUpdateUserForm
-from django.contrib import messages
+from django.contrib import auth, messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib import auth
+from django.contrib.auth.decorators  import login_required
 
 def register(request):
     form = RegisterForm()
@@ -45,10 +45,12 @@ def login_view(request):
         }
     )
 
+@login_required(login_url='contact:login')
 def logout_view(request):
     auth.logout(request)
     return redirect('contact:login')
 
+@login_required(login_url='contact:login')
 def user_update(request):
     form = RegisterUpdateUserForm(instance=request.user)
 

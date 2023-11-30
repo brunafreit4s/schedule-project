@@ -193,5 +193,3 @@ class RegisterUpdateUserForm(forms.ModelForm):
                 self.add_error('password1', ValidationError(errors))
 
         return password1
-
-    
