@@ -23,3 +23,8 @@
   Para visualizar o projeto em funcionamento, basta executar o comando:
   <pre>python manage.py runserver</pre>
 </p>
+
+<p>
+  PAra instalar as bibliotecas necessárias:
+  <pre>pip install -r requirements.txt</pre>
+</p>
