@@ -25,7 +25,7 @@
 </p>
 
 <p>
-  PAra instalar as bibliotecas necessárias:
+  Para instalar as bibliotecas necessárias:
   <pre>pip install -r requirements.txt</pre>
 </p>
 
